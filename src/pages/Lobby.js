@@ -5,18 +5,16 @@ function Lobby() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1> Lobby </h1>
+        <div style={{width: "600px",
+            height: "400px",
+            border: "2px solid white",
+            padding: "10px",
+            margin: "10px"}}>
+            <p> Player 1</p>
+            <p> Player 2</p>
+        </div>
+        <h2> Code: </h2>
       </header>
     </div>
   );

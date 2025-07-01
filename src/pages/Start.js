@@ -5,32 +5,7 @@ import { useState } from 'react';
 import app from './firebaseConfig';
 import { getDatabase, ref, set, get, push } from "firebase/database";
 
-function App() {
-
-  const [lobbyCode, setLobbyCode] = useState('')
-
-  const joinLobby = async() => {
-    const db = getDatabase(app);
-    // Check if lobby code is empty
-    if (lobbyCode === ''){
-      console.log("Lobby Code is empty");
-      const newDoc = push(ref(db, "lobbies"));
-
-      set(newDoc, {lobbyID: uniqueId})
-      .then(() => {console.log("Data Sent")})
-      .catch((error)  => {console.log(error)})
-    } 
-    // Else join the lobby
-    else {
-      const dbRef = ref(db, "lobbies");
-      const snapshot = await get(dbRef);
-      if(snapshot.exists()){
-        console.log(Object.keys(snapshot.val()));
-      }
-      console.log(lobbyCode);
-    }
-  }
-
+function Start() {
   return (
     <div className="App">
       <header className="App-header">
@@ -53,4 +28,4 @@ function App() {
   );
 }
 
-export default App;
+export default Start;

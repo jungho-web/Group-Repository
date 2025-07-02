@@ -1,19 +1,77 @@
-import logo from './logo.svg';
-import './App.css';
+import './Join.css';
+import { useState } from 'react';
+
+import { userData, lobbyData } from './Data'
+import { useNavigate } from 'react-router-dom';
+
+import app from '../firebaseConfig';
+import { getDatabase, ref, set, get, push } from "firebase/database";
 
 function Join() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Join a Lobby!</h1>
-        <p> Input Lobby Code: 
-            &nbsp;
-            <input type='text' placeholder='Leave Empty For New Lobby' style={{width: '250px', height: '25px'}}></input>
-        </p>
-        <button>Join</button>
-      </header>
-    </div>
-  );
+    const [lobbyCode, setLobbyCode] = useState('')
+    const navigate = useNavigate();
+
+    const joinLobby = async () => {
+        const db = getDatabase(app);
+        // check if lobby code is empty
+        if (lobbyCode === '') {
+            console.log("lobby code is empty");
+            const reference = ref(db, "lobbies")
+            const newdoc = push(reference);
+
+            lobbyData.id = newdoc.key;
+            lobbyData.players = [userData.id];
+            set(newdoc, lobbyData)
+                .then(() => { navigate("/lobby") })
+                .catch((error) => { console.log(error) })
+        }
+        // else join the lobby
+        else {
+            // Get database refrendce
+            const dbref = ref(db, "lobbies");
+            const snapshot = await get(dbref);
+
+            if (snapshot.exists()) {
+                var data = snapshot.val();
+                var validIDs = Object.keys(data);
+                // Check if lobby is valid
+                if (validIDs.includes(lobbyCode)) {
+                    // If it exists join lobby
+                    data[lobbyCode]["players"].push(userData.id);
+
+                    const reference = ref(db, "lobbies/" + lobbyCode);
+
+                    lobbyData.id = lobbyCode;
+                    set(reference, data[lobbyCode])
+                        .then(() => { navigate("/lobby") })
+                        .catch((error) => { console.log(error) })
+                }
+                else {
+                    console.log("Lobby Does Not Exist");
+                }
+            }
+            console.log(lobbyCode);
+        }
+    }
+
+
+    return (
+        <div className="App">
+            <header className="App-header">
+                <h1>Join a Lobby!</h1>
+                <p> Input Lobby Code:
+                    &nbsp;
+                    <input type='text'
+                        value={lobbyCode}
+                        onChange={(e) => setLobbyCode(e.target.value)}
+                        placeholder='Leave blank for random lobby'
+                        className="Lobby-input" />
+                </p>
+
+                <button onClick={joinLobby}>Join</button>
+            </header>
+        </div>
+    );
 }
 
 export default Join;

@@ -8,6 +8,8 @@ import Join from './pages/Join';
 import Lobby from './pages/Lobby';
 import Start from './pages/Start';
 
+import {userData} from './pages/Data'
+
 // Web Vitals
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -21,6 +23,10 @@ const router = createBrowserRouter([
   { path: "/lobby", element: <Lobby/>},
   { path: "/start", element: <Start/>},
 ])
+
+// Generate Unique id
+userData.id = "user-" + Math.random().toString(36).substring(2, 11);
+console.log(userData.id);
 
 root.render(
   <React.StrictMode>

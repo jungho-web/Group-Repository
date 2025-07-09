@@ -11,6 +11,9 @@ function Join() {
     const [lobbyCode, setLobbyCode] = useState('')
     const navigate = useNavigate();
 
+    const back = () => {
+        navigate("/");
+    }
     const joinLobby = async () => {
         const db = getDatabase(app);
         // check if lobby code is empty
@@ -20,7 +23,7 @@ function Join() {
             const newdoc = push(reference);
 
             lobbyData.id = newdoc.key;
-            lobbyData.players = [userData.id];
+            lobbyData.players = [{id: userData.id, ready: false, host: true}];
             set(newdoc, lobbyData)
                 .then(() => { navigate("/lobby") })
                 .catch((error) => { console.log(error) })
@@ -37,7 +40,7 @@ function Join() {
                 // Check if lobby is valid
                 if (validIDs.includes(lobbyCode)) {
                     // If it exists join lobby
-                    data[lobbyCode]["players"].push(userData.id);
+                    data[lobbyCode]["players"].push({id: userData.id, ready: false, host: false});
 
                     const reference = ref(db, "lobbies/" + lobbyCode);
 
@@ -69,6 +72,7 @@ function Join() {
                 </p>
 
                 <button onClick={joinLobby}>Join</button>
+                <button onClick={back}>Back</button>
             </header>
         </div>
     );

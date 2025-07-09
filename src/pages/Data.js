@@ -1,6 +1,8 @@
 export var lobbyData = {
+    start: "",
     id: "",
-    players: []
+    players: [],
+    pairs: []
 };
 
 export var userData = {

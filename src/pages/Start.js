@@ -6,7 +6,7 @@ import { userData, lobbyData } from './Data'
 import app from '../firebaseConfig';
 import { getDatabase, ref, get, set, remove } from "firebase/database";
 import { useNavigate } from 'react-router-dom';
-import { Bracket } from '../components/bracket';
+import { Bracket } from '../Components/bracket';
 
 function Start() {
   const navigate = useNavigate();

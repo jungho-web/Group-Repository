@@ -76,17 +76,18 @@ function Lobby() {
                 var pairs = [];
                 for (i = 0; i < shuffled.length; i+=2){
                     var pair = [];
-                    pair.push(shuffled[i].id);
+                    pair.push([shuffled[i].id, shuffled[i].lives]);
                     if (i + 1 === shuffled.length){
                         pairs.push(pair);
                         break;
                     }
-                    pair.push(shuffled[i + 1].id);
+                    pair.push([shuffled[i + 1].id, shuffled[i].lives]);
                     pairs.push(pair);
                 }
                 data['pairs'] = pairs;
 
-                set(dbref, data)
+                const dbref2 = ref(db, "lobbies/" + lobbyData.id + "/pairs");
+                set(dbref2, data['pairs'])
                     .catch((error) => { console.log(error) })
 
                 navigate('/start');

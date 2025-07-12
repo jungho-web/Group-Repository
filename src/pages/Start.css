@@ -15,7 +15,7 @@
     animation: timer 1 5s linear;
   }
   .play-timer{
-    animation: timer 1 30s linear;
+    animation: timer 1 20s linear;
   }
 }
 .grid{

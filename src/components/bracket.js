@@ -1,6 +1,4 @@
 export function Bracket(data) {
-    console.log(data);
-
     var pairs = [];
     if (data.children !== undefined){
         for (var i = 0; i < data.children.length; i++){
@@ -11,7 +9,6 @@ export function Bracket(data) {
                 for (var k = 0; k < data.children[i][j][1]; k++){
                     lives += "❤️";
                 }
-                console.log(lives);
                 pair.push((<p>{data.children[i][j][0] + " " + lives}</p>));
             }
             pairs.push(pair);

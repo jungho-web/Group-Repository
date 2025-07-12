@@ -272,35 +272,8 @@ function Start() {
     setTimeout(setState(1), 500);
     setTimeout(() => {status.current = 0}, 500);
   };
-
-   const containerRef = useRef(null);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return; // Ensures it's not null
-
-    // Clear existing crowns in case of hot reload
-    while (container.firstChild) {
-      container.removeChild(container.firstChild);
-    }
-
-    for (let i = 0; i < 30; i++) {
-      const crown = document.createElement('div');
-      crown.className = 'crown';
-      crown.textContent = '👑';
-
-      // Random styling
-      crown.style.left = `${Math.random() * 100}vw`;
-      crown.style.top = `${Math.random() * 100}vh`;
-      crown.style.fontSize = `${1 + Math.random() * 3}rem`;
-      crown.style.opacity = `${0.4 + Math.random() * 0.6}`;
-      crown.style.animationDuration = `${5 + Math.random() * 10}s, ${10 + Math.random() * 20}s`;
-      crown.style.animationDelay = `${Math.random() * 5}s`;
-
-      container.appendChild(crown);
-    }
-  }, []);
-      switch (state) {
+  
+  switch (state) {
     case 0:
       return (
         <div className="App">

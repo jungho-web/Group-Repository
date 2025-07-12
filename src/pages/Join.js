@@ -71,8 +71,8 @@ function Join() {
                         className="Lobby-input" />
                 </p>
 
-                <button onClick={joinLobby}>Join</button>
-                <button onClick={back}>Back</button>
+                <button className="btn" onClick={joinLobby}>Join</button>
+                <button className="btn" onClick={back}>Back</button>
             </header>
         </div>
     );

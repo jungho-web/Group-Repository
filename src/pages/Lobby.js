@@ -205,11 +205,11 @@ function Lobby() {
                     </label>
                 </div>
                 <div>
-                    <button onClick={start}>Start</button>
+                    <button className="btn" onClick={start}>Start</button>
                     &nbsp;
-                    <button onClick={ready}>Ready!</button>
+                    <button className="btn" onClick={ready}>Ready!</button>
                     &nbsp;
-                    <button onClick={leave}>Leave</button>
+                    <button className="btn" onClick={leave}>Leave</button>
                 </div>
                 <h2> Code: {lobbyData.id}</h2>
             </header>

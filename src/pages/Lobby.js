@@ -76,17 +76,18 @@ function Lobby() {
                 var pairs = [];
                 for (i = 0; i < shuffled.length; i+=2){
                     var pair = [];
-                    pair.push(shuffled[i].id);
+                    pair.push([shuffled[i].id, shuffled[i].lives]);
                     if (i + 1 === shuffled.length){
                         pairs.push(pair);
                         break;
                     }
-                    pair.push(shuffled[i + 1].id);
+                    pair.push([shuffled[i + 1].id, shuffled[i].lives]);
                     pairs.push(pair);
                 }
                 data['pairs'] = pairs;
 
-                set(dbref, data)
+                const dbref2 = ref(db, "lobbies/" + lobbyData.id + "/pairs");
+                set(dbref2, data['pairs'])
                     .catch((error) => { console.log(error) })
 
                 navigate('/start');
@@ -205,11 +206,11 @@ function Lobby() {
                     </label>
                 </div>
                 <div>
-                    <button className="btn" onClick={start}>Start</button>
+                    <button onClick={start} className="btn btn-start">Start</button>
                     &nbsp;
-                    <button className="btn" onClick={ready}>Ready!</button>
+                    <button onClick={ready} className="btn btn-ready">Ready!</button>
                     &nbsp;
-                    <button className="btn" onClick={leave}>Leave</button>
+                    <button onClick={leave} className="btn btn-leave">Leave</button>
                 </div>
                 <h2> Code: {lobbyData.id}</h2>
             </header>

@@ -23,7 +23,7 @@ function Join() {
             const newdoc = push(reference);
 
             lobbyData.id = newdoc.key;
-            lobbyData.players = [{id: userData.id, ready: false, host: true}];
+            lobbyData.players = [{id: userData.id, ready: false, host: true, choice: "", lives: 3}];
             set(newdoc, lobbyData)
                 .then(() => { navigate("/lobby") })
                 .catch((error) => { console.log(error) })
@@ -40,7 +40,7 @@ function Join() {
                 // Check if lobby is valid
                 if (validIDs.includes(lobbyCode)) {
                     // If it exists join lobby
-                    data[lobbyCode]["players"].push({id: userData.id, ready: false, host: false});
+                    data[lobbyCode]["players"].push({id: userData.id, ready: false, host: false, choice: "", lives: 3});
 
                     const reference = ref(db, "lobbies/" + lobbyCode);
 
@@ -71,8 +71,8 @@ function Join() {
                         className="Lobby-input" />
                 </p>
 
-                <button className="btn" onClick={joinLobby}>Join</button>
-                <button className="btn" onClick={back}>Back</button>
+                <button onClick={joinLobby} className="btn btn-join">Join</button>
+                <button onClick={back} className="btn btn-back">Back</button>
             </header>
         </div>
     );

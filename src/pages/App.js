@@ -13,9 +13,9 @@ function App() {
       <header className="App-header">
         <h1> Rock Paper Scissors! </h1>
         <Link to = {"/join"}>
-          <button className='btn'> Join </button>
+          <button className="btn btn-join"> Join </button>
         </Link>
-        <button className='btn' onClick={changeName} > Change Name </button>
+        <button className="btn btn-settings"> Settings </button>
       </header>
     </div>
   );

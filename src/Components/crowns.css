@@ -1,0 +1,23 @@
+
+.crown-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.crown {
+  position: absolute;
+  animation: floatAndSpin linear infinite;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Combined animation */
+@keyframes floatAndSpin {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-120vh) rotate(360deg);
+  }
+}

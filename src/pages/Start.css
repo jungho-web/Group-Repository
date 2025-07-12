@@ -10,8 +10,9 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 2s linear;
   }
+
   .white-rectangle-footer{
     animation: timer 1 5s linear;
   }
@@ -165,12 +166,16 @@
   height: 100%;
   top:  0; 
 }
+
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  0% {
+    transform: rotate(0deg) scale(1.0);
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    transform: rotate(180deg) scale(2.5);
+  }
+  100% {
+    transform: rotate(360deg) scale(1.0);
   }
 }
 

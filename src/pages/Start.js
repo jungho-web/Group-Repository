@@ -1,4 +1,4 @@
-//`import logo from './logo.svg';
+import logo from './default-dance-fortnite.gif';
 import './Start.css';
 
 import { useEffect, useState, useCallback, useRef } from 'react';
@@ -7,6 +7,8 @@ import app from '../firebaseConfig';
 import { getDatabase, ref, get, set, remove } from "firebase/database";
 import { useNavigate } from 'react-router-dom';
 import { Bracket } from '../Components/bracket';
+import '../Components/crowns';
+import SpinningCrownsBackground from '../Components/crowns';
 
 // This function determines if move1 beats move2 using standard RPS rules
 function beats(move1, move2) {
@@ -27,7 +29,6 @@ function Start() {
   const [lives, setLives] = useState('');
   const [opponentLives, setOpponentLives] = useState('');
   const [winner, setWinner] = useState('');
-  const [loser, setLoser] = useState('');
   const status = useRef(0);
 
   const labels = {
@@ -258,6 +259,12 @@ function Start() {
     console.log(opponentLives.length)
     console.log(lives.length)
     if (opponentLives.length === 0 || lives.length === 0){
+      if (opponentLives.length === 0){
+        setWinner(userData.id);
+      }
+      if (lives.length === 0){
+        setWinner(opponent);
+      }
       setState(4);
       return;
     }
@@ -266,8 +273,34 @@ function Start() {
     setTimeout(() => {status.current = 0}, 500);
   };
 
+   const containerRef = useRef(null);
 
-  switch (state) {
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return; // Ensures it's not null
+
+    // Clear existing crowns in case of hot reload
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }
+
+    for (let i = 0; i < 30; i++) {
+      const crown = document.createElement('div');
+      crown.className = 'crown';
+      crown.textContent = '👑';
+
+      // Random styling
+      crown.style.left = `${Math.random() * 100}vw`;
+      crown.style.top = `${Math.random() * 100}vh`;
+      crown.style.fontSize = `${1 + Math.random() * 3}rem`;
+      crown.style.opacity = `${0.4 + Math.random() * 0.6}`;
+      crown.style.animationDuration = `${5 + Math.random() * 10}s, ${10 + Math.random() * 20}s`;
+      crown.style.animationDelay = `${Math.random() * 5}s`;
+
+      container.appendChild(crown);
+    }
+  }, []);
+      switch (state) {
     case 0:
       return (
         <div className="App">
@@ -371,6 +404,14 @@ function Start() {
     case 4:
       return (
         <div className='App'>
+ <header className="App-header">
+        <SpinningCrownsBackground / >
+          <img src={logo} className="App-logo" alt="logo" />
+            <div style={{ position: "relative", zIndex: 1 }}>
+          <h1>WINNER!!!!</h1>
+          <h1>{winner}</h1>
+          </div>
+      </header>
             <footer className="play-timer" onAnimationEnd={()=>navigate('/')}>
             </footer>
         </div>
@@ -379,7 +420,12 @@ function Start() {
     default:
       return (
         <div className='App'>
-
+            <div style={{ position: "relative", zIndex: 1 }}>
+        <header className="App-header">
+          <h1>WINNER!!!!</h1>
+          <h1>{winner}</h1>
+      </header>
+      </div>
         </div>
       )
 

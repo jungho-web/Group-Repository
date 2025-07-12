@@ -14,9 +14,9 @@ A simple Rock-Paper-Scissors game built using React for the frontend and Firebas
 - **Styling**: CSS or styled-components
 
 ## People
-Julian: Backend
-Ron: Logic
-Joel: CSS + Styling
+Julian: Backend  
+Ron: Logic  
+Joel: CSS + Styling  
 
 # Demo
 https://youtu.be/mAVZhhAYTPA?feature=shared
